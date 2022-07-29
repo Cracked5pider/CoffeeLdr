@@ -177,14 +177,14 @@ BOOL CoffeeProcessSections( PCOFFEE Coffee )
 
                     memcpy( Coffee->SecMap[ SectionCnt ].Ptr + Coffee->Reloc->VirtualAddress, &Offset, sizeof( UINT32 ) );
                 }
-                else if ( Coffee->Reloc->Type == IMAGE_REL_AMD64_REL32 )
+                else if ( IMAGE_REL_AMD64_REL32 <= Coffee->Reloc->Type && Coffee->Reloc->Type <= IMAGE_REL_AMD64_REL32_5  )
                 {
                     memcpy( &Offset, Coffee->SecMap[ SectionCnt ].Ptr + Coffee->Reloc->VirtualAddress, sizeof( UINT32 ) );
 
                     if ( ( Coffee->SecMap[ Coffee->Symbol[ Coffee->Reloc->SymbolTableIndex ].SectionNumber - 1 ].Ptr - ( Coffee->SecMap[ SectionCnt ].Ptr + Coffee->Reloc->VirtualAddress + 4 ) ) > 0xffffffff )
                         return FALSE;
 
-                    Offset += ( UINT32 ) ( Coffee->SecMap[ Coffee->Symbol[ Coffee->Reloc->SymbolTableIndex ].SectionNumber - 1 ].Ptr - ( Coffee->SecMap[ SectionCnt ].Ptr + Coffee->Reloc->VirtualAddress + 4 ) );
+                    Offset += ( UINT32 ) ( Coffee->SecMap[ Coffee->Symbol[ Coffee->Reloc->SymbolTableIndex ].SectionNumber - 1 ].Ptr - (Coffee->Reloc->Type - 4) - ( Coffee->SecMap[ SectionCnt ].Ptr + Coffee->Reloc->VirtualAddress + 4 ) );
 
                     memcpy( Coffee->SecMap[ SectionCnt ].Ptr + Coffee->Reloc->VirtualAddress, &Offset, sizeof( UINT32 ) );
                 }
