@@ -3,4 +3,6 @@ Get-ChildItem -Path $TopSearchDir -Filter *.o -Recurse -File -Name  -Exclude *x8
 
 ForEach ($item in (Get-Content $pwd\FileList.txt)) {
     Start-Process -FilePath "$pwd\CoffeeLdr.x64.exe" -Wait -NoNewWindow -WorkingDirectory $pwd -ArgumentList "go",$item
+    #Start-Process -FilePath "$pwd\CoffeeLdr.x64.exe" -Wait -NoNewWindow -WorkingDirectory $pwd -ArgumentList "go",$item | Set-Content Results.txt
 }
+Remove-Item FileList.txt
