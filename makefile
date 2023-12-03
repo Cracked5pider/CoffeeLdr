@@ -16,6 +16,6 @@ x64:
 	@ $(CCX64) Source/*.c  -o $(OUTX64) $(CFLAGS) $(LFLAGS) -IInclude -masm=intel -D DEBUG
 
 clean:
-	@ rm -rf bin/*.o
-	@ rm -rf bin/*.bin
-	@ rm -rf bin/*.exe
+	@ rm -rf Bin/*.o
+	@ rm -rf Bin/*.bin
+	@ rm -rf Bin/*.exe
